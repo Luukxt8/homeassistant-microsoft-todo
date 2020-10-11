@@ -209,6 +209,19 @@ class MSToDoListDevice(CalendarEventDevice):
 
         attributes = {}
         attributes[ALL_TASKS] = [t["subject"] for t in self._tasks]
+        for t in self._tasks:
+            d = {}
+            if t["assignedTo"] != None:
+                d["assignedTo"] = t["assignedTo"]
+            if t["dueDateTime"] != None:
+                d["dueDateTime"] = t["dueDateTime"]["dateTime"]
+            if t["reminderDateTime"] != None:
+                d["reminderDateTime"] = t["reminderDateTime"]["dateTime"]
+            if t["status"] != None:
+                d["status"] = t["status"]
+            if t["completedDateTime"] != None:
+                d["completedDateTime"] = t["completedDateTime"]
+            attributes[t["subject"]] = d
 
         return attributes
 
